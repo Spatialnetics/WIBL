@@ -1,27 +1,30 @@
-function generateUUID() { // Public Domain/MIT
-    let d = new Date().getTime();//Timestamp
-    let d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        let r = Math.random() * 16;//random number between 0 and 16
-        if(d > 0){//Use timestamp until depleted
-            r = (d + r)%16 | 0;
-            d = Math.floor(d/16);
-        } else {//Use microseconds since page-load if supported
-            r = (d2 + r)%16 | 0;
-            d2 = Math.floor(d2/16);
+function generateUUID() {
+    // Public Domain/MIT
+    let d = new Date().getTime(); //Timestamp
+    let d2 = (typeof performance !== "undefined" && performance.now && performance.now() * 1000) || 0; //Time in microseconds since page-load or 0 if unsupported
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+        let r = Math.random() * 16; //random number between 0 and 16
+        if (d > 0) {
+            //Use timestamp until depleted
+            r = ((d + r) % 16) | 0;
+            d = Math.floor(d / 16);
+        } else {
+            //Use microseconds since page-load if supported
+            r = ((d2 + r) % 16) | 0;
+            d2 = Math.floor(d2 / 16);
         }
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
     });
 }
 
 function generateUniqueID() {
     const uuid = generateUUID();
     const prefix = document.getElementById("unique-id").value;
-    let identifier = '';
-    if (prefix.includes('-')) {
+    let identifier = "";
+    if (prefix.includes("-")) {
         identifier = prefix;
     } else {
-        identifier = prefix + '-' + uuid;
+        identifier = prefix + "-" + uuid;
     }
     document.getElementById("unique-id").value = identifier;
 }
@@ -53,7 +56,16 @@ function createJSONConfig() {
     const uploadInterval = document.getElementById("upload-interval").value;
     const uploadDuration = document.getElementById("upload-duration").value;
     const port1BaudRate = document.getElementById("port1-baud").value;
-    const port2BaudRate = document.getElementById("port2-baud").value;
+    const wifiSsid1 = document.getElementById("wifi-ssid1").value;
+    const wifiSsid2 = document.getElementById("wifi-ssid2").value;
+    const wifiSsid3 = document.getElementById("wifi-ssid3").value;
+    const wifiSsid4 = document.getElementById("wifi-ssid4").value;
+    const wifiSsid5 = document.getElementById("wifi-ssid5").value;
+    const ignoredWifiSsid1 = document.getElementById("ignored-wifi-ssid1").value;
+    const ignoredWifiSsid2 = document.getElementById("ignored-wifi-ssid2").value;
+    const ignoredWifiSsid3 = document.getElementById("ignored-wifi-ssid3").value;
+    const ignoredWifiSsid4 = document.getElementById("ignored-wifi-ssid4").value;
+    const ignoredWifiSsid5 = document.getElementById("ignored-wifi-ssid5").value;
     let config = `{
         "version": {
             "commandproc": "1.4.1"
@@ -98,6 +110,23 @@ function createJSONConfig() {
             "timeout": ${uploadTimeout},
             "interval": ${uploadInterval},
             "duration": ${uploadDuration}
+        },
+        "connection": {
+            "wifiSsid1": "${wifiSsid1},
+            "wifiSsid2": "${wifiSsid2},
+            "wifiSsid3": "${wifiSsid3},
+            "wifiSsid4": "${wifiSsid4},
+            "wifiSsid5": "${wifiSsid5},
+            "wifiPass1": "${wifiPass1},
+            "wifiPass2": "${wifiPass2},
+            "wifiPass3": "${wifiPass3},
+            "wifiPass4": "${wifiPass4},
+            "wifiPass5": "${wifiPass5},
+            "ignoredWifiSsid1": "${ignoredWifiSsid1},
+            "ignoredWifiSsid2": "${ignoredWifiSsid2},
+            "ignoredWifiSsid3": "${ignoredWifiSsid3},
+            "ignoredWifiSsid4": "${ignoredWifiSsid4},
+            "ignoredWifiSsid5": "${ignoredWifiSsid5},
         }
     }`;
     let data = JSON.parse(config);
@@ -117,12 +146,12 @@ function parseConfigJSON(config) {
     document.getElementById("nmeabridge").checked = config.enable.udpbridge;
     document.getElementById("webserveronboot").checked = config.enable.webserver;
     document.getElementById("autoupload").value = config.enable.upload;
-    
+
     document.getElementById("unique-id").value = config.uniqueID;
     document.getElementById("ship-name").value = config.shipname;
 
     document.getElementById("bridge-port").value = config.udpbridge;
-    
+
     document.getElementById("wifimode").value = config.wifi.mode;
     document.getElementById("retry-delay").value = config.wifi.station.delay;
     document.getElementById("retry-count").value = config.wifi.station.retries;
@@ -141,69 +170,114 @@ function parseConfigJSON(config) {
     document.getElementById("upload-timeout").value = config.upload.timeout;
     document.getElementById("upload-interval").value = config.upload.interval;
     document.getElementById("upload-duration").value = config.upload.duration;
+
+    document.getElementById("wifi-ssid1").value = config.upload.wifiSsid1;
+    document.getElementById("wifi-ssid2").value = config.upload.wifiSsid2;
+    document.getElementById("wifi-ssid3").value = config.upload.wifiSsid3;
+    document.getElementById("wifi-ssid4").value = config.upload.wifiSsid4;
+    document.getElementById("wifi-ssid5").value = config.upload.wifiSsid5;
+    document.getElementById("wifi-pass1").value = config.upload.wifiPass1;
+    document.getElementById("wifi-pass2").value = config.upload.wifiPass2;
+    document.getElementById("wifi-pass3").value = config.upload.wifiPass3;
+    document.getElementById("wifi-pass4").value = config.upload.wifiPass4;
+    document.getElementById("wifi-pass5").value = config.upload.wifiPass5;
+    document.getElementById("ignored-wifi-ssid1").value = config.upload.ignoredWifiSsid1;
+    document.getElementById("ignored-wifi-ssid2").value = config.upload.ignoredWifiSsid2;
+    document.getElementById("ignored-wifi-ssid3").value = config.upload.ignoredWifiSsid3;
+    document.getElementById("ignored-wifi-ssid4").value = config.upload.ignoredWifiSsid4;
+    document.getElementById("ignored-wifi-ssid5").value = config.upload.ignoredWifiSsid5;
 }
 
 function uploadCurrentConfig() {
     const config = createJSONConfig();
-    sendCommand('setup ' + config).then((data) => {});
+    sendCommand("setup " + config).then((data) => {});
 }
 
 function uploadDefaultConfig() {
     const config = createJSONConfig();
-    sendCommand('lab defaults ' + config).then((data) => {});
+    sendCommand("lab defaults " + config).then((data) => {});
 }
 
 function saveConfigLocally() {
-    sendCommand('snapshot config').then((data) => {
+    sendCommand("snapshot config").then((data) => {
         if (data.url === "") {
             window.alert("Failed to generate defaults snapshot on logger");
         } else {
-            document.getElementById('downloadFrame').setAttribute('src', '..' + data.url);
+            document.getElementById("downloadFrame").setAttribute("src", ".." + data.url);
         }
     });
 }
 
 function saveDefaultLocally() {
-    sendCommand('snapshot defaults').then((data) => {
+    sendCommand("snapshot defaults").then((data) => {
         if (data.url === "") {
             window.alert("Failed to generate defaults snapshot on logger");
         } else {
-            document.getElementById('downloadFrame').setAttribute('src', '..' + data.url);
+            document.getElementById("downloadFrame").setAttribute("src", ".." + data.url);
         }
     });
 }
 
 function loadConfigLocally() {
-    let input = document.createElement('input');
-    input.type = 'file';
-    updateText = function() {
+    let input = document.createElement("input");
+    input.type = "file";
+    updateText = function () {
         let reader = new FileReader();
         reader.readAsText(input.files[0]);
-        reader.onerror = function() {
+        reader.onerror = function () {
             console.log(reader.error);
-            window.alert('Failed on read: ' + reader.error.message);
-        }
-        reader.onload = function() {
+            window.alert("Failed on read: " + reader.error.message);
+        };
+        reader.onload = function () {
             try {
                 json = JSON.parse(reader.result);
                 parseConfigJSON(json);
             } catch (error) {
                 console.log(error);
-                window.alert('Failed on load: ' + error.message);
+                window.alert("Failed on load: " + error.message);
             }
-        }
-    }
-    input.onchange = function() {
+        };
+    };
+    input.onchange = function () {
         updateText();
-    }
+    };
     input.click();
+}
+
+function initWifiSsidSelects() {
+    initWifiList("wifi-ssid1");
+    initWifiList("wifi-ssid2");
+    initWifiList("wifi-ssid3");
+    initWifiList("wifi-ssid4");
+    initWifiList("wifi-ssid5");
+    initWifiList("ignored-wifi-ssid1");
+    initWifiList("ignored-wifi-ssid2");
+    initWifiList("ignored-wifi-ssid3");
+    initWifiList("ignored-wifi-ssid4");
+    initWifiList("ignored-wifi-ssid5");
+}
+function initWifiList(selectId) {
+    const availableSSIDs = ["HomeNetwork", "CoffeeShopWiFi", "OfficeWidasasdasdasdasdsaFi"]; // TODO: scan for actual SSIDs
+
+    const select = document.getElementById(selectId);
+
+    // Clear existing options except the default
+    select.querySelectorAll("option:not([value=''])").forEach((opt) => opt.remove());
+
+    // Populate dynamically
+    availableSSIDs.forEach((ssid) => {
+        const option = document.createElement("option");
+        option.value = ssid;
+        option.textContent = ssid;
+        select.appendChild(option);
+    });
 }
 
 function bootstrapConfig() {
     const boot = () => {
-        sendCommand('setup').then((data) => {
+        sendCommand("setup").then((data) => {
             parseConfigJSON(data);
         });
-    }
+    };
     after(500, boot);
 }

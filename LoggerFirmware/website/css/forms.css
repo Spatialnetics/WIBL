@@ -47,6 +47,20 @@ fieldset.upload label {
     width: 250px;
 }
 
+fieldset.connections {
+    gap: 0.5em;
+    margin-top: 10px;
+}
+
+fieldset.connections label {
+    width: 80px;
+}
+
+fieldset.connections select,
+fieldset.connections input {
+    width: 200px;
+}
+
 fieldset input {
     font-size: 18px;
     padding: 2px;
@@ -96,7 +110,7 @@ fieldset.baudrates {
 }
 
 .certificate {
-    width: 95%
+    width: 95%;
 }
 
 .cert-output {
