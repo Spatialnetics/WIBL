@@ -61,6 +61,11 @@ function createJSONConfig() {
     const wifiSsid3 = document.getElementById("wifi-ssid3").value;
     const wifiSsid4 = document.getElementById("wifi-ssid4").value;
     const wifiSsid5 = document.getElementById("wifi-ssid5").value;
+    const wifiPass1 = document.getElementById("wifi-pass1").value;
+    const wifiPass2 = document.getElementById("wifi-pass2").value;
+    const wifiPass3 = document.getElementById("wifi-pass3").value;
+    const wifiPass4 = document.getElementById("wifi-pass4").value;
+    const wifiPass5 = document.getElementById("wifi-pass5").value;
     const ignoredWifiSsid1 = document.getElementById("ignored-wifi-ssid1").value;
     const ignoredWifiSsid2 = document.getElementById("ignored-wifi-ssid2").value;
     const ignoredWifiSsid3 = document.getElementById("ignored-wifi-ssid3").value;
