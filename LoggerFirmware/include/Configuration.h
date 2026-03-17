@@ -82,7 +82,7 @@ class Config {
             CONFIG_STATION_SSID_S,  /* String: WiFi SSID to use when acting as a station */
             CONFIG_STATION_PASSWD_S,/* String: WiFi password to use when acting as a station */
             CONFIG_WIFIIP_S,        /* String: WiFi IP address assigned */
-            CONFIG_WIFIMODE_S,      /* String: WiFi mode (Station, SoftAP) */
+            CONFIG_WIFIMODE_S,      /* String: WiFi mode (Station, SoftAP, or Dual) */
             CONFIG_BAUDRATE_1_S,    /* String: baud rate for NMEA0183 input channel 1 */
             CONFIG_BAUDRATE_2_S,    /* String: baud rate for NMEA0183 input channel 2 */
             CONFIG_BRIDGE_PORT_S,   /* String: UDP broadcast port to bridge to NMEA0183 */

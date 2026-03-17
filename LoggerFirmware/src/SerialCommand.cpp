@@ -529,6 +529,9 @@ void SerialCommand::ManageWireless(String const& command, CommandSource src)
     } else if (command == "station") {
         m_wifi->SetWirelessMode(WiFiAdapter::WirelessMode::ADAPTER_STATION);
         logger::LoggerConfig.SetConfigString(logger::Config::ConfigParam::CONFIG_WS_STATUS_S, "Station-Enabled");
+    } else if (command == "dual") {
+        m_wifi->SetWirelessMode(WiFiAdapter::WirelessMode::ADAPTER_DUAL);
+        logger::LoggerConfig.SetConfigString(logger::Config::ConfigParam::CONFIG_WS_STATUS_S, "AP-Enabled,Station-Enabled");
     } else {
         EmitMessage("ERR: wireless management command not recognised.", src);
         if (src == CommandSource::WirelessPort && m_wifi != nullptr)

@@ -77,8 +77,9 @@ public:
     bool TransmitMessages(void);
     
     enum WirelessMode {
-        ADAPTER_STATION,    ///< Join the configured network when activated
-        ADAPTER_SOFTAP      ///< Create the configured network when activated
+        ADAPTER_STATION = 0b01, ///< Join the configured network when activated
+        ADAPTER_SOFTAP  = 0b10, ///< Create the configured network when activated
+        ADAPTER_DUAL    = ADAPTER_STATION | ADAPTER_SOFTAP,
     };
     /// \brief Set up wireless mode for the adapter (i.e., AP or STA)
     static void SetWirelessMode(WirelessMode mode);
